@@ -1,0 +1,46 @@
+name: Flutter Web CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      my_secret: ${{secrets.GH_DEPLOY}}
+    steps:
+    - uses: actions/checkout@v1
+    - uses: subosito/flutter-action@v1
+      with:
+        channel: beta
+    - run: flutter config --enable-web
+    - run: flutter pub get
+#     - run: flutter test
+    - run: flutter build web
+    - name: Archive Production Artifact
+      uses: actions/upload-artifact@master
+      with:
+        name: web-build
+        path: build/web
+    - name: Download Artifact
+      uses: actions/download-artifact@master
+      with:
+        name: web-build 
+    - name: Display structure of build files
+      run: ls -R
+      working-directory: ./web
+    - name: Deploy to GH Pages
+      run: |
+        cd build/web
+        git init
+        git config --global user.email rohitjain19060@gmail.com
+        git config --global user.name rohit19060
+        git status
+        git remote add origin https://${{secrets.GH_DEPLOY}}@github.com/rohit19060/flutter_theme_designer/dev.git
+        git checkout -b gh-pages
+        git add --all
+        git commit -m "update"
+        git push origin gh-pages -f
