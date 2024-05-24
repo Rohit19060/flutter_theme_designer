@@ -20,9 +20,11 @@ extension ThemeDesignExt on ThemeDesign {
       case ThemeDesign.dark:
         return ThemeData.dark();
       case ThemeDesign.highContrastLight:
-        return ThemeData.from(colorScheme: const ColorScheme.highContrastLight());
+        return ThemeData.from(
+            colorScheme: const ColorScheme.highContrastLight());
       case ThemeDesign.highContrastDark:
-        return ThemeData.from(colorScheme: const ColorScheme.highContrastDark());
+        return ThemeData.from(
+            colorScheme: const ColorScheme.highContrastDark());
       case ThemeDesign.colorSchemeLight:
         return ThemeData.from(colorScheme: const ColorScheme.light());
       case ThemeDesign.colorSchemeDark:
@@ -31,7 +33,8 @@ extension ThemeDesignExt on ThemeDesign {
   }
 }
 
-final themeDesignState = StateProvider<ThemeDesign>((ref) => ThemeDesign.values.first);
+final themeDesignState =
+    StateProvider<ThemeDesign>((ref) => ThemeDesign.values.first);
 
 class CustomThemeData {
   CustomThemeData(this.themeData);
@@ -71,23 +74,6 @@ class CustomThemeData {
       radioTheme: ${themeData.radioTheme},
       switchTheme: ${themeData.switchTheme},
       bottomAppBarTheme: ${themeData.bottomAppBarTheme},
-    )
-    ''';
-}
-
-class CustomContainerData {
-  CustomContainerData(this.container, this.width, this.height);
-  Container container;
-  final double width, height;
-
-  @override
-  String toString() => '''
-    Container(
-      width: $width,
-      height: $height,
-      padding: ${container.padding},
-      decoration: ${container.decoration},
-      child: ${container.child},
     )
     ''';
 }

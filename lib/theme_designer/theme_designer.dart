@@ -14,48 +14,59 @@ class ThemeDesigner extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = ref.watch(themeState);
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text('Theme Designer', style: TextStyle(fontSize: 30)),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.refresh),
-            onPressed: () {
-              ref.invalidate(themeState);
-              ref.invalidate(themeDesignState);
-            },
+    return MaterialApp(
+      theme: theme,
+      home: Scaffold(
+        appBar: AppBar(
+          leading: BackButton(
+            onPressed: () => Navigator.of(context).pop(),
           ),
-        ],
-      ),
-      body: Row(
-        children: [
-          const Expanded(
-            child: Column(
-              children: [
-                Center(child: Text('Theme Editor', style: TextStyle(fontSize: 24))),
-                Expanded(child: ThemeEditor()),
-              ],
+          centerTitle: true,
+          title: const Text('Theme Designer', style: TextStyle(fontSize: 30)),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.refresh),
+              onPressed: () {
+                ref.invalidate(themeState);
+                ref.invalidate(themeDesignState);
+              },
             ),
-          ),
-          const VerticalDivider(width: 1),
-          Expanded(
-            child: Consumer(builder: (context, ref, child) {
-              final view = ref.watch(infoViewState);
-              return Column(
+          ],
+        ),
+        body: Row(
+          children: [
+            const Expanded(
+              child: Column(
                 children: [
-                  const Center(child: Text('Theme Preview', style: TextStyle(fontSize: 24))),
-                  const SizedBox(height: 6),
-                  Expanded(
-                      child: switch (view) {
-                    InfoView.devicePreview => const DeviceView(),
-                    InfoView.codeView => CodePreview(str: CustomThemeData(theme).toString()),
-                  }),
+                  Center(
+                      child:
+                          Text('Theme Editor', style: TextStyle(fontSize: 24))),
+                  Expanded(child: ThemeEditor()),
                 ],
-              );
-            }),
-          ),
-        ],
+              ),
+            ),
+            const VerticalDivider(width: 1),
+            Expanded(
+              child: Consumer(builder: (context, ref, child) {
+                final view = ref.watch(infoViewState);
+                return Column(
+                  children: [
+                    const Center(
+                        child: Text('Theme Preview',
+                            style: TextStyle(fontSize: 24))),
+                    const SizedBox(height: 6),
+                    Expanded(
+                        child: switch (view) {
+                      InfoView.devicePreview => const DeviceView(),
+                      InfoView.codeView =>
+                        CodePreview(str: CustomThemeData(theme).toString()),
+                    }),
+                  ],
+                );
+              }),
+            ),
+          ],
+        ),
       ),
     );
   }

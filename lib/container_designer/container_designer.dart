@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../code_preview.dart';
-import '../theme_designer/theme_state.dart';
 import 'container_editor.dart';
 import 'container_states.dart';
+import 'string_src.dart';
 
 class ContainerDesigner extends StatelessWidget {
   const ContainerDesigner({super.key});
@@ -13,7 +13,8 @@ class ContainerDesigner extends StatelessWidget {
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: const Text('Container Designer', style: TextStyle(fontSize: 30)),
+          title:
+              const Text('Container Designer', style: TextStyle(fontSize: 30)),
           actions: [
             IconButton(
               icon: const Icon(Icons.refresh),
@@ -26,7 +27,10 @@ class ContainerDesigner extends StatelessWidget {
             const Expanded(
               child: Column(
                 children: [
-                  Center(child: Text('Container Editor', style: TextStyle(fontSize: 24))),
+                  Center(
+                      child: Text('Container Editor',
+                          style: TextStyle(fontSize: 24))),
+                  SizedBox(height: 6),
                   Expanded(child: ContainerEditor()),
                 ],
               ),
@@ -52,16 +56,7 @@ class ContainerDesigner extends StatelessWidget {
                   Expanded(
                     child: Consumer(
                       builder: (context, ref, child) => CodePreview(
-                        str: CustomContainerData(
-                          Container(
-                            width: ref.watch(containerWidthState),
-                            height: ref.watch(containerHeightState),
-                            decoration: ref.watch(decorationNotifierProvider),
-                            child: const SizedBox.expand(),
-                          ),
-                          ref.watch(containerWidthState),
-                          ref.watch(containerHeightState),
-                        ).toString(),
+                        str: ref.watch(stringSrcNotifierProvider),
                       ),
                     ),
                   )
