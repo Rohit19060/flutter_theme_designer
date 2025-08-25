@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
+
+import '../core/themes.dart';
 
 enum ThemeDesign {
+  lightNew,
+  darkNew,
   light,
   dark,
   highContrastLight,
@@ -15,16 +19,18 @@ enum ThemeDesign {
 extension ThemeDesignExt on ThemeDesign {
   ThemeData get theme {
     switch (this) {
+      case ThemeDesign.lightNew:
+        return lightTheme;
+      case ThemeDesign.darkNew:
+        return darkTheme;
       case ThemeDesign.light:
         return ThemeData.light();
       case ThemeDesign.dark:
         return ThemeData.dark();
       case ThemeDesign.highContrastLight:
-        return ThemeData.from(
-            colorScheme: const ColorScheme.highContrastLight());
+        return ThemeData.from(colorScheme: const ColorScheme.highContrastLight());
       case ThemeDesign.highContrastDark:
-        return ThemeData.from(
-            colorScheme: const ColorScheme.highContrastDark());
+        return ThemeData.from(colorScheme: const ColorScheme.highContrastDark());
       case ThemeDesign.colorSchemeLight:
         return ThemeData.from(colorScheme: const ColorScheme.light());
       case ThemeDesign.colorSchemeDark:
@@ -33,8 +39,7 @@ extension ThemeDesignExt on ThemeDesign {
   }
 }
 
-final themeDesignState =
-    StateProvider<ThemeDesign>((ref) => ThemeDesign.values.first);
+final themeDesignState = StateProvider<ThemeDesign>((ref) => ThemeDesign.values.first);
 
 class CustomThemeData {
   CustomThemeData(this.themeData);
@@ -57,8 +62,8 @@ class CustomThemeData {
       unselectedWidgetColor: ${themeData.unselectedWidgetColor},
       disabledColor: ${themeData.disabledColor},
       secondaryHeaderColor: ${themeData.secondaryHeaderColor},
-      dialogBackgroundColor: ${themeData.dialogBackgroundColor},
-      indicatorColor: ${themeData.indicatorColor},
+      dialogBackgroundColor: ${themeData.dialogTheme.backgroundColor},
+      indicatorColor: ${themeData.tabBarTheme.indicatorColor},
       hintColor: ${themeData.hintColor},
       buttonTheme: ${themeData.buttonTheme},
       primaryTextTheme: ${themeData.primaryTextTheme},

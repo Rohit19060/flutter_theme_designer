@@ -1,6 +1,5 @@
-// ignore_for_file: avoid_manual_providers_as_generated_provider_dependency
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'container_states.g.dart';
@@ -8,8 +7,7 @@ part 'container_states.g.dart';
 final containerHeightState = StateProvider<double>((ref) => 100);
 final containerWidthState = StateProvider<double>((ref) => 100);
 final containerRadiusState = StateProvider<double>((ref) => 0);
-final decorationType =
-    StateProvider<Decoration>((ref) => const BoxDecoration());
+final decorationType = StateProvider<Decoration>((ref) => const BoxDecoration());
 
 @riverpod
 class DecorationNotifier extends _$DecorationNotifier {
@@ -43,15 +41,12 @@ class DecorationNotifier extends _$DecorationNotifier {
     final previousBorder = currentDecoration.border ?? Border.all(width: 0);
     state = currentDecoration
         .copyWith(border: currentDecoration.border ?? Border.all(width: 0))
-        .copyWith(
-            border:
-                Border.all(width: value, color: previousBorder.bottom.color));
+        .copyWith(border: Border.all(width: value, color: previousBorder.bottom.color));
   }
 
   void updateBorderRadius(double value) {
     final currentDecoration = state as BoxDecoration;
-    state =
-        currentDecoration.copyWith(borderRadius: BorderRadius.circular(value));
+    state = currentDecoration.copyWith(borderRadius: BorderRadius.circular(value));
   }
 
   void updateBorderColor(Color value) {
@@ -59,9 +54,7 @@ class DecorationNotifier extends _$DecorationNotifier {
     final previousBorder = currentDecoration.border ?? Border.all(width: 0);
     state = currentDecoration
         .copyWith(border: currentDecoration.border ?? Border.all(width: 0))
-        .copyWith(
-            border:
-                Border.all(color: value, width: previousBorder.bottom.width));
+        .copyWith(border: Border.all(color: value, width: previousBorder.bottom.width));
   }
 
   String toCustomString() {

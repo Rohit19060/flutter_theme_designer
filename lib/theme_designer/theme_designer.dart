@@ -38,9 +38,7 @@ class ThemeDesigner extends ConsumerWidget {
             const Expanded(
               child: Column(
                 children: [
-                  Center(
-                      child:
-                          Text('Theme Editor', style: TextStyle(fontSize: 24))),
+                  Center(child: Text('Theme Editor', style: TextStyle(fontSize: 24))),
                   Expanded(child: ThemeEditor()),
                 ],
               ),
@@ -51,15 +49,12 @@ class ThemeDesigner extends ConsumerWidget {
                 final view = ref.watch(infoViewState);
                 return Column(
                   children: [
-                    const Center(
-                        child: Text('Theme Preview',
-                            style: TextStyle(fontSize: 24))),
+                    const Center(child: Text('Theme Preview', style: TextStyle(fontSize: 24))),
                     const SizedBox(height: 6),
                     Expanded(
                         child: switch (view) {
                       InfoView.devicePreview => const DeviceView(),
-                      InfoView.codeView =>
-                        CodePreview(str: CustomThemeData(theme).toString()),
+                      InfoView.codeView => CodePreview(str: CustomThemeData(theme).toString()),
                     }),
                   ],
                 );

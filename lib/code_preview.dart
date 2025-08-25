@@ -355,8 +355,6 @@ class _HighlightSpan {
         return style.classStyle;
       case _HighlightType.constant:
         return style.constantStyle;
-      default:
-        return style.baseStyle;
     }
   }
 }

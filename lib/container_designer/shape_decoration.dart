@@ -4,9 +4,7 @@ class ShapeDecorationDesigner extends StatelessWidget {
   const ShapeDecorationDesigner({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Expanded(
+  Widget build(BuildContext context) => Expanded(
       child: ListView(),
-    );
-  }
+      );
 }

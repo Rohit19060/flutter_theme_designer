@@ -6,20 +6,24 @@ import 'home.dart';
 import 'theme_designer/theme_designer.dart';
 
 final router = GoRouter(
-  initialLocation: '/',
   routes: <GoRoute>[
-    GoRoute(name: 'home', path: '/', builder: (context, state) => const Home(), routes: [
-      GoRoute(
-        name: 'theme_designer',
-        path: 'theme_designer',
-        builder: (context, state) => const ThemeDesigner(),
-      ),
-      GoRoute(
-        name: 'container_designer',
-        path: 'container_designer',
-        builder: (context, state) => const ContainerDesigner(),
-      ),
-    ]),
+    GoRoute(
+      name: 'home',
+      path: '/',
+      builder: (context, state) => const Home(),
+      routes: [
+        GoRoute(
+          name: 'theme_designer',
+          path: 'theme_designer',
+          builder: (context, state) => const ThemeDesigner(),
+        ),
+        GoRoute(
+          name: 'container_designer',
+          path: 'container_designer',
+          builder: (context, state) => const ContainerDesigner(),
+        ),
+      ],
+    ),
   ],
   errorBuilder: (context, state) => Scaffold(
     body: Center(
